@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+from lxml.html.soupparser import fromstring
+
+import requests
+
+URL = 'https://m.althingi.is/maelendaskra/'
+
+html_goo = requests.get(URL).text
+
+stage = fromstring(html_goo, features='html.parser').find('./body/div[2]/div[2]')
+
+issue = stage.find('h4[@id="thingmal"]').text.replace('\r\n', ' ')
+issue_type = stage.find('p[@id="malstegund"]').text
+try:
+    speaking = stage.find('p[@id="raedustoll"]/strong').tail.strip()
+    speech_started = stage.find('p[@id="raedustoll"]/br').text
+except AttributeError:
+    speaking = None
+    speech_started = None
+
+print(issue_type)
+print(issue)
+print()
+
+if speaking:
+    print('Í ræðustól: %s' % speaking)
+    print(speech_started)
+    print()
+else:
+    print('Enginn í ræðustól')
+    print()
+
+for i, node in enumerate(stage.findall('ol/li[@class="maelandi"]/strong')):
+
+    turn = i + 1
+    mp = node.text
+    speech = node.tail[2:].strip().strip('.')
+
+    print('%d. %s (%s)' % (turn, mp, speech))
