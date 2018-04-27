@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# maelendaskra
+# version 1.0
+# authors: Helgi Hrafn Gunnarsson <helgi@binary.is>
 
 from lxml.html.soupparser import fromstring
 
