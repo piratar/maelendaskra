@@ -13,8 +13,13 @@ html_goo = requests.get(URL).text
 
 stage = fromstring(html_goo, features='html.parser').find('./body/div[2]/div[2]')
 
-issue = stage.find('h4[@id="thingmal"]').text.replace('\r\n', ' ')
-issue_type = stage.find('p[@id="malstegund"]').text
+try:
+    issue = stage.find('h4[@id="thingmal"]').text.replace('\r\n', ' ')
+    issue_type = stage.find('p[@id="malstegund"]').text
+except AttributeError:
+    print('Ekkert mál í gangi')
+    quit()
+
 try:
     speaking = stage.find('p[@id="raedustoll"]/strong').tail.strip()
     speech_started = stage.find('p[@id="raedustoll"]/br').text
