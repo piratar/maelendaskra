@@ -38,7 +38,8 @@ print()
 
 if speaking:
     print('Í ræðustól: %s' % speaking)
-    print(speech_started)
+    if speech_started:
+        print(speech_started)
     print()
 else:
     print('Enginn í ræðustól')
