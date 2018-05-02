@@ -9,6 +9,11 @@ import requests
 
 URL = 'https://m.althingi.is/maelendaskra/'
 
+def capfirst(string):
+    if len(string) == 0:
+        return ''
+    return string[0].upper() + string[1:]
+
 html_goo = requests.get(URL).text
 
 stage = fromstring(html_goo, features='html.parser').find('./body/div[2]/div[2]')
@@ -27,7 +32,7 @@ except AttributeError:
     speaking = None
     speech_started = None
 
-print(issue_type)
+print(capfirst(issue_type))
 print(issue)
 print()
 
