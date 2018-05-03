@@ -20,10 +20,14 @@ stage = fromstring(html_goo, features='html.parser').find('./body/div[2]/div[2]'
 
 try:
     issue = stage.find('h4[@id="thingmal"]').text.replace('\r\n', ' ')
-    issue_type = stage.find('p[@id="malstegund"]').text
 except AttributeError:
     print('Ekkert mál í gangi')
     quit()
+
+try:
+    issue_type = stage.find('p[@id="malstegund"]').text
+except AttributeError:
+    issue_type = ''
 
 try:
     speaking = stage.find('p[@id="raedustoll"]/strong').tail.strip()
