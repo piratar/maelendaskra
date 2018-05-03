@@ -31,7 +31,7 @@ except AttributeError:
 
 try:
     speaking = stage.find('p[@id="raedustoll"]/strong').tail.strip()
-    speech_started = stage.find('p[@id="raedustoll"]/br').text
+    speech_started = stage.find('p[@id="raedustoll"]/br').tail
 except AttributeError:
     speaking = None
     speech_started = None
